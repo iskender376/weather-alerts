@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\WeatherAlert;
+use App\Services\WeatherService;
 use Illuminate\Support\Facades\Auth;
 
 class WeatherAlertController extends Controller
@@ -39,5 +40,12 @@ class WeatherAlertController extends Controller
         $alert->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function getWeatherData(WeatherService $weatherService, $city)
+    {
+        $weather = $weatherService->getWeather($city);
+
+        return response()->json($weather);
     }
 }
