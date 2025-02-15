@@ -7,6 +7,7 @@ use App\Models\WeatherAlert;
 use App\Services\WeatherService;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WeatherAlertMail;
+use App\Notifications\WeatherPushNotification;
 
 class CheckWeather extends Command
 {
@@ -29,7 +30,8 @@ class CheckWeather extends Command
 //                isset($weather['uvi']) && $weather['uvi'] > $alert->threshold_uv) {
 
                 Mail::to($alert->user->email)->send(new WeatherAlertMail($alert));
-                $this->info("Notification sent to {$alert->user->email}");
+                $alert->user->notify(new WeatherPushNotification());
+                $this->info("WebPush sent and Notification sent to {$alert->user->email}");
            // }
         }
     }
