@@ -1,4 +1,9 @@
 <div>
+    <button wire:click="subscribe" style="
+    background: #dedede;
+    padding: 10px;
+    margin-bottom: 15px;
+">Enable Notifications</button>
     <h2 class="text-xl font-bold mb-4">Manage Your Weather Alerts</h2>
 
     <!-- Success Message -->

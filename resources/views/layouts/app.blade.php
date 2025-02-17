@@ -18,7 +18,20 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <x-banner />
+    @livewireScripts
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                }).catch(function(error) {
+                console.error('Service Worker registration failed:', error);
+            });
+        }
+    </script>
+    @livewire('web-push-subscription')
+
+    <x-banner />
 
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
@@ -40,6 +53,6 @@
 
         @stack('modals')
 
-        @livewireScripts
+
     </body>
 </html>
